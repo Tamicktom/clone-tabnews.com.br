@@ -1,7 +1,7 @@
 
 export default function Home() {
   return (
-    <div>
+    <div className="h-svh w-full">
       <h1>Banana</h1>
     </div>
   );
