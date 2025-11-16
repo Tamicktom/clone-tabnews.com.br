@@ -1,4 +1,3 @@
-
 export default function Home() {
   return (
     <div className="h-svh w-full">
@@ -6,5 +5,3 @@ export default function Home() {
     </div>
   );
 }
-
-
