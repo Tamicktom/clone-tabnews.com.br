@@ -1,4 +1,8 @@
+//* Libraries imports
 import { Client } from "pg";
+
+//* local imports
+import { env } from "@/env/server";
 
 type ValidQueryValues = string | number | boolean | null;
 
@@ -9,11 +13,11 @@ type QueryObject = {
 
 async function query(queryObject: QueryObject) {
   const client = new Client({
-    host: "localhost",
-    port: 5432,
-    user: "postgres",
-    password: "password",
-    database: "postgres",
+    host: env.POSTGRES_HOST,
+    port: env.POSTGRES_PORT,
+    user: env.POSTGRES_USER,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DB,
   });
   await client.connect();
 
