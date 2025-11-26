@@ -1,16 +1,31 @@
-import { describe, it } from "bun:test";
+//* Libraries imports
+import { describe, expect, it } from "bun:test";
 
 describe("GET /api/v1/status", () => {
   it("should return status ok", async () => {
-    const response = await fetch("http://localhost:3000/api/v1/status");
-    const data = await response.json();
+    const url = "http://localhost:3000/api/v1/status";
+    const response = await fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+          "accept": "application/json",
+        }
+      }
+    );
+    const responseBody = await response.json();
 
-    if (response.status !== 200) {
-      throw new Error(`Expected status 200, but got ${response.status}`);
-    }
+    expect(response.status).toBe(200);
 
-    if (data.status !== "ok") {
-      throw new Error(`Expected status 'ok', but got ${data.status}`);
-    }
+    expect(responseBody, "Response body should have status 'ok'")
+      .toHaveProperty("status", "ok");
+    expect(responseBody, "Response body should have property 'updated_at'")
+      .toHaveProperty("updated_at");
+
+    expect(new Date(responseBody.updated_at)
+      .toString(), "Response body 'updated_at' should be a valid date")
+      .not.toBe("Invalid Date");
+
+    console.log("Response Body:", responseBody);
   });
 });

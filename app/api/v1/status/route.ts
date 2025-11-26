@@ -7,10 +7,15 @@ export async function GET() {
     }
   );
 
-  console.log("Database query result:", result.rows);
+  const updatedAt = new Date().toISOString();
+
+  const response = {
+    status: "ok",
+    updated_at: updatedAt
+  };
 
   return new Response(
-    JSON.stringify({ status: "ok" }),
+    JSON.stringify(response),
     {
       status: 200,
       headers: { "Content-Type": "application/json" },
