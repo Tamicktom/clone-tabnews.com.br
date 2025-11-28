@@ -1,4 +1,7 @@
+//* Local imports
 import { database } from "@/infra/database";
+
+import { env } from "@/env/server";
 
 export async function GET() {
   const result = await database.query(
@@ -7,11 +10,39 @@ export async function GET() {
     }
   );
 
+  const databaseVersion = await database.query(
+    {
+      text: "SELECT version();",
+    }
+  );
+
+  const maximumConnections = await database.query(
+    {
+      text: "SHOW max_connections;",
+    }
+  );
+
+  const usedConnections = await database.query(
+    {
+      text: `SELECT COUNT(*) FROM pg_stat_activity WHERE datname = '${env.POSTGRES_DB}';`,
+    }
+  );
+
   const updatedAt = new Date().toISOString();
+
+  const databaseVersionValue = databaseVersion.rows[0]?.version || "unknown";
+  const maxConnectionsValue = maximumConnections.rows[0]?.max_connections || "unknown";
+  const usedConnectionsValue = usedConnections.rows[0]?.count || "unknown";
 
   const response = {
     status: "ok",
-    updated_at: updatedAt
+    updated_at: updatedAt,
+    database: {
+      version: databaseVersionValue,
+      connection: result.rowCount === 1 ? "ok" : "failed",
+      max_connections: maxConnectionsValue,
+      used_connections: usedConnectionsValue,
+    }
   };
 
   return new Response(
