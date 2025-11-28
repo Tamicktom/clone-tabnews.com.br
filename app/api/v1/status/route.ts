@@ -40,8 +40,8 @@ export async function GET() {
     database: {
       version: databaseVersionValue,
       connection: result.rowCount === 1 ? "ok" : "failed",
-      max_connections: maxConnectionsValue,
-      used_connections: usedConnectionsValue,
+      max_connections: Number.parseInt(maxConnectionsValue, 10),
+      used_connections: Number.parseInt(usedConnectionsValue, 10),
     }
   };
 

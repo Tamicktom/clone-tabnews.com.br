@@ -42,10 +42,12 @@ describe("GET /api/v1/status", () => {
 
     expect(responseBody.database, "Database info should have property 'max_connections'")
       .toHaveProperty("max_connections");
+    expect(responseBody.database.max_connections, "Max connections should be 100")
+      .toBe(100);
 
     expect(responseBody.database, "Database info should have property 'used_connections'")
       .toHaveProperty("used_connections");
-
-    console.log("Response Body:", responseBody);
+    expect(responseBody.database.used_connections, "Used connections should be a number")
+      .toBe(1);
   });
 });
