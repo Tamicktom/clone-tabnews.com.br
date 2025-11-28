@@ -24,7 +24,7 @@ export async function GET() {
 
   const usedConnections = await database.query(
     {
-      text: `SELECT COUNT(*) FROM pg_stat_activity WHERE datname = '${env.POSTGRES_DB}';`,
+      text: `SELECT COUNT(*)::int FROM pg_stat_activity WHERE datname = '${env.POSTGRES_DB}';`,
     }
   );
 
@@ -41,7 +41,7 @@ export async function GET() {
       version: databaseVersionValue,
       connection: result.rowCount === 1 ? "ok" : "failed",
       max_connections: Number.parseInt(maxConnectionsValue, 10),
-      used_connections: Number.parseInt(usedConnectionsValue, 10),
+      used_connections: usedConnectionsValue,
     }
   };
 
