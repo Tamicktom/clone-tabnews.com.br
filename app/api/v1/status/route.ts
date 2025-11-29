@@ -24,7 +24,8 @@ export async function GET() {
 
   const usedConnections = await database.query(
     {
-      text: `SELECT COUNT(*)::int FROM pg_stat_activity WHERE datname = '${env.POSTGRES_DB}';`,
+      text: "SELECT COUNT(*)::int FROM pg_stat_activity WHERE datname = $1;",
+      values: [env.POSTGRES_DB],
     }
   );
 

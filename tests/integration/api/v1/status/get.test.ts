@@ -49,5 +49,6 @@ describe("GET /api/v1/status", () => {
       .toHaveProperty("used_connections");
     expect(responseBody.database.used_connections, "Used connections should be a number")
       .toBe(1);
+
   });
 });
