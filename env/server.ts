@@ -12,6 +12,7 @@ const databasetEnvSchema = z.object({
 const serverEnvSchema = z.object({
   ...databasetEnvSchema.shape,
   PORT: z.coerce.number().default(3000),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 });
 
 export const env = serverEnvSchema.parse(process.env);
