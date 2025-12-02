@@ -40,3 +40,4 @@ async function query(queryObject: QueryObject) {
 export const database = {
   query,
 };
+
