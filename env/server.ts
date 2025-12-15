@@ -7,6 +7,7 @@ const databasetEnvSchema = z.object({
   POSTGRES_USER: z.string().min(1, 'POSTGRES_USER is required'),
   POSTGRES_PASSWORD: z.string().min(1, 'POSTGRES_PASSWORD is required'),
   POSTGRES_DB: z.string().min(1, 'POSTGRES_DB is required'),
+  DATABASE_URL: z.string(),
 });
 
 const serverEnvSchema = z.object({
