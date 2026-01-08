@@ -18,7 +18,7 @@ async function query(queryObject: QueryObject) {
     user: env.POSTGRES_USER,
     password: env.POSTGRES_PASSWORD,
     database: env.POSTGRES_DB,
-    ssl: env.NODE_ENV === "production" ? true : false
+    ssl: env.NODE_ENV === "production"
   });
 
   try {
