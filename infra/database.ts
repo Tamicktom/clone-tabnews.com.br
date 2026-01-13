@@ -12,18 +12,9 @@ type QueryObject = {
 }
 
 async function query(queryObject: QueryObject) {
-  const client = new Client({
-    host: env.POSTGRES_HOST,
-    port: env.POSTGRES_PORT,
-    user: env.POSTGRES_USER,
-    password: env.POSTGRES_PASSWORD,
-    database: env.POSTGRES_DB,
-    ssl: env.NODE_ENV === "production"
-  });
+  const client = await getNewClient();
 
   try {
-    await client.connect();
-
     const result = await client.query(queryObject.text, queryObject.values);
 
     return result;
@@ -37,7 +28,29 @@ async function query(queryObject: QueryObject) {
   }
 }
 
+async function getNewClient() {
+  const client = new Client({
+    host: env.POSTGRES_HOST,
+    port: env.POSTGRES_PORT,
+    user: env.POSTGRES_USER,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DB,
+    ssl: getSSLValues(),
+  });
+
+  await client.connect();
+
+  return client;
+}
+
+function getSSLValues() {
+  if (env.NODE_ENV === "production") return true;
+
+  return false;
+}
+
 export const database = {
   query,
+  getNewClient,
 };
 
