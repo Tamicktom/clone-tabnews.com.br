@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun run services:up && bun --bun next dev",
+    "dev": "bun run services:up && bun run wait-for-postgres && bun run migrations:up && bun --bun next dev",
     "build": "bun --bun next build",
     "start": "next start",
     "lint": "eslint",
@@ -14,7 +14,8 @@
     "test:watch": "bun test --watch",
     "migrations:create": "node-pg-migrate --migrations-dir infra/migrations create",
     "migrations:up": "bun run --bun node-pg-migrate --migrations-dir infra/migrations up",
-    "migrations:down": "bun run --bun node-pg-migrate --migrations-dir infra/migrations down"
+    "migrations:down": "bun run --bun node-pg-migrate --migrations-dir infra/migrations down",
+    "wait-for-postgres": "bun run infra/scripts/wait-for-postgres.ts"
   },
   "dependencies": {
     "@types/pg": "^8.16.0",
