@@ -4,7 +4,7 @@ async function waitForAllServices() {
   await waitForWebServer();
 
   async function waitForWebServer() {
-    return retry(fetchStatusPage);
+    return retry(fetchStatusPage, { retries: 10 });
 
     async function fetchStatusPage() {
       const url = "http://localhost:3000/api/v1/status";
