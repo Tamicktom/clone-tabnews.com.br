@@ -10,7 +10,7 @@
     "services:up": "docker compose -f infra/compose.yml up -d",
     "services:down": "docker compose -f infra/compose.yml down",
     "services:stop": "docker compose -f infra/compose.yml stop",
-    "test": "bun run services:up && bun run wait-for-postgres && bun run migrations:up && concurrently --names next,test --hide next -k -s command-test 'bun --bun next dev' 'bun test --timeout 10000'",
+    "test": "bun run services:up && bun run wait-for-postgres && bun run migrations:up && concurrently --names next,test --hide next -k -s command-test 'bun --bun next dev' 'bun test --timeout 10000 --verbose'",
     "test:watch": "bun test --watch",
     "migrations:create": "node-pg-migrate --migrations-dir infra/migrations create",
     "migrations:up": "bun run --bun node-pg-migrate --migrations-dir infra/migrations up",
