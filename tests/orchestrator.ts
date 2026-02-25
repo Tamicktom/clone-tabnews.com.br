@@ -7,7 +7,10 @@ async function waitForAllServices() {
   await waitForWebServer();
 
   async function waitForWebServer() {
-    return retry(fetchStatusPage, { retries: RETRIES, maxTimeout: MAX_TIMEOUT });
+    return retry(fetchStatusPage, {
+      retries: RETRIES,
+      maxTimeout: MAX_TIMEOUT,
+    });
 
     async function fetchStatusPage(_bail: unknown, attempt: number) {
       console.log(`Checking if web server is ready (attempt ${attempt})...`);
