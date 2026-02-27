@@ -1,0 +1,15 @@
+name: Automated Tests
+
+on: [pull_request]
+
+jobs:
+  jest:
+    name: Jest Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install
+      - run: bun run test
