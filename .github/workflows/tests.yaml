@@ -12,5 +12,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install
+      # clone `.env.development` to `.env` for testing
+      - run: cp .env.development .env
       - run: bun run services:up
       - run: bun run test
