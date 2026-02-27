@@ -1,6 +1,6 @@
 name: Automated Tests
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   jest:
@@ -12,4 +12,5 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install
+      - run: bun run services:up
       - run: bun run test
