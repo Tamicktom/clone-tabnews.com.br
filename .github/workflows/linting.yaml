@@ -1,0 +1,20 @@
+name: Linting
+
+on: [pull_request]
+
+jobs:
+  biome:
+    name: Biome Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install
+
+      # clone `.env.development` to `.env` for testing
+      - run: cp .env.development .env
+
+      # build
+      - run: bun run lint:biome:check
