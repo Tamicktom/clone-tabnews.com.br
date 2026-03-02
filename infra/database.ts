@@ -9,7 +9,7 @@ type ValidQueryValues = string | number | boolean | null;
 type QueryObject = {
   text: string;
   values?: ValidQueryValues[];
-}
+};
 
 async function query(queryObject: QueryObject) {
   const client = await getNewClient();
@@ -18,12 +18,10 @@ async function query(queryObject: QueryObject) {
     const result = await client.query(queryObject.text, queryObject.values);
 
     return result;
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Database query error:", error);
     throw error;
-  }
-  finally {
+  } finally {
     await client.end();
   }
 }
@@ -53,4 +51,3 @@ export const database = {
   query,
   getNewClient,
 };
-
