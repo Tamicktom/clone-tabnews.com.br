@@ -1,5 +1,11 @@
 //* Libraries imports
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, beforeAll } from "bun:test";
+
+import orchestrator from "@/tests/orchestrator";
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+});
 
 describe("GET /api/v1/status", () => {
   it("should return status ok", async () => {
