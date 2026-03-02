@@ -1,14 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "bun-types"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["bun-types"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,9 +20,7 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -40,7 +32,5 @@
     "**/*.mts",
     "app/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
