@@ -47,14 +47,16 @@ export async function GET() {
     });
   } catch (error) {
     const publicErrorObject = new InternalServerError({
+      message: "Serviço indisponível no momento",
       cause: error,
+      statusCode: 503,
     });
 
     console.log("Error no controller do /status");
     console.error(publicErrorObject);
 
     return new Response(JSON.stringify(publicErrorObject), {
-      status: 200,
+      status: publicErrorObject.statusCode,
       headers: { "Content-Type": "application/json" },
     });
   }
