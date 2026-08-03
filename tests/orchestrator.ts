@@ -1,4 +1,5 @@
 import retry from "async-retry";
+import { database } from "@/infra/database";
 
 const RETRIES = 10;
 const MAX_TIMEOUT = 1_000;
@@ -33,8 +34,15 @@ async function waitForAllServices() {
   }
 }
 
+async function clearDatabase() {
+  await database.query({
+    text: "drop schema public cascade; create schema public;"
+  });
+}
+
 const orchestrator = {
   waitForAllServices,
+  clearDatabase,
 };
 
 export default orchestrator;

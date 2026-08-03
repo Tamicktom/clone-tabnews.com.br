@@ -3,6 +3,7 @@ import { Client } from "pg";
 
 //* local imports
 import { env } from "@/env/server";
+import { ServiceError } from "@/infra/errors";
 
 type ValidQueryValues = string | number | boolean | null;
 
@@ -20,9 +21,13 @@ async function query(queryObject: QueryObject) {
     return result;
   } catch (error) {
     console.error("Database query error:", error);
-    throw error;
+    const serviceErrorObject = new ServiceError({
+      message: "Erro na conexão com Banco ou na Query.",
+      cause: error
+    });
+    throw serviceErrorObject;
   } finally {
-    await client.end();
+    await client?.end?.();
   }
 }
 
